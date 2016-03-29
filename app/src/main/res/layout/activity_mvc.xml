@@ -9,4 +9,15 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="net.devwiki.architecture.mvc.MvcActivity">
 
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/app_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </android.support.v7.widget.RecyclerView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
 </RelativeLayout>

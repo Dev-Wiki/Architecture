@@ -39,6 +39,6 @@ public class MvcModel {
                     listener.onComplete(list);
                 }
             }
-        };
+        }.execute();
     }
 }

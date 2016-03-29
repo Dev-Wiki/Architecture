@@ -40,6 +40,6 @@ public class MvpModelImpl implements MvpModel {
                     listener.onComplete(list);
                 }
             }
-        };
+        }.execute();
     }
 }

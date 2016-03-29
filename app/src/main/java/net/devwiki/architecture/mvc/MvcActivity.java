@@ -65,10 +65,16 @@ public class MvcActivity extends AppCompatActivity implements SwipeRefreshLayout
     }
 
     private void displayResult(List<AppInfo> list){
+        refreshLayout.setRefreshing(false);
         if (list != null){
             infoList.addAll(list);
             appAdapter.notifyDataSetChanged();
-            refreshLayout.setRefreshing(false);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
     }
 }

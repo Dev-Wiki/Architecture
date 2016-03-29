@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 
 public class MvpActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, MvpView{
 
@@ -31,6 +32,7 @@ public class MvpActivity extends AppCompatActivity implements SwipeRefreshLayout
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mvp);
+        ButterKnife.bind(this);
 
         infoList = new ArrayList<>();
         appAdapter = new AppAdapter(this, infoList);
@@ -43,6 +45,13 @@ public class MvpActivity extends AppCompatActivity implements SwipeRefreshLayout
 
         presenter = new MvpPresenter(this);
     }
+
+    /**
+     * 1.Activity(View)持有Presenter对象
+     * 2.Activity(View)接收用户指令,执行下拉刷新操作
+     * 3.Activity(View)调用Presenter的loadApp方法
+     */
+
 
     @Override
     public void onRefresh() {
@@ -57,7 +66,16 @@ public class MvpActivity extends AppCompatActivity implements SwipeRefreshLayout
 
     @Override
     public void loadComplete(List<AppInfo> list) {
-        infoList.addAll(list);
-        appAdapter.notifyDataSetChanged();
+        refreshLayout.setRefreshing(false);
+        if (list != null){
+            infoList.addAll(list);
+            appAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
     }
 }
