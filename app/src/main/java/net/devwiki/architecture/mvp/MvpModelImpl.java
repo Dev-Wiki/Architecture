@@ -10,9 +10,20 @@ import java.util.List;
 
 
 /**
+ * 模型实现类
  * Created by zyz on 2016/3/28.
  */
 public class MvpModelImpl implements MvpModel {
+
+    public static MvpModel getInstance(){
+        return ModelHolder.mvpModel;
+    }
+
+    private static class ModelHolder{
+        private static MvpModel mvpModel = new MvpModelImpl();
+    }
+
+    private MvpModelImpl(){}
 
     @Override
     public void loadApp(final Context context, final OnLoadListener listener) {

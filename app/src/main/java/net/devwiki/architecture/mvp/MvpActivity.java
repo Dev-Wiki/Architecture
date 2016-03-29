@@ -15,7 +15,7 @@ import java.util.List;
 
 import butterknife.Bind;
 
-public class MvpActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener{
+public class MvpActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, MvpView{
 
     @Bind(R.id.app_list)
     RecyclerView appList;
@@ -24,6 +24,8 @@ public class MvpActivity extends AppCompatActivity implements SwipeRefreshLayout
 
     private List<AppInfo> infoList;
     private AppAdapter appAdapter;
+
+    private MvpPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +40,24 @@ public class MvpActivity extends AppCompatActivity implements SwipeRefreshLayout
         appList.setAdapter(appAdapter);
 
         refreshLayout.setOnRefreshListener(this);
+
+        presenter = new MvpPresenter(this);
     }
 
     @Override
     public void onRefresh() {
+        presenter.loadApp(this);
+    }
 
+    @Override
+    public void startLoad() {
+        infoList.clear();
+        appAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void loadComplete(List<AppInfo> list) {
+        infoList.addAll(list);
+        appAdapter.notifyDataSetChanged();
     }
 }

@@ -1,4 +1,6 @@
-package net.devwiki.architecture.common;
+package net.devwiki.architecture.mvc;
+
+import net.devwiki.architecture.common.AppInfo;
 
 import java.util.List;
 

@@ -8,9 +8,7 @@ import android.support.v7.widget.RecyclerView;
 
 import net.devwiki.architecture.R;
 import net.devwiki.architecture.common.AppAdapter;
-import net.devwiki.architecture.common.AppHelper;
 import net.devwiki.architecture.common.AppInfo;
-import net.devwiki.architecture.common.OnAppListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +26,7 @@ public class MvcActivity extends AppCompatActivity implements SwipeRefreshLayout
     private List<AppInfo> infoList;
     private AppAdapter appAdapter;
 
-    private AppHelper appHelper;
+    private MvcModel mvcModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +42,8 @@ public class MvcActivity extends AppCompatActivity implements SwipeRefreshLayout
         appList.setAdapter(appAdapter);
 
         refreshLayout.setOnRefreshListener(this);
+
+        mvcModel = MvcModel.getInstance();
     }
 
     /**
@@ -52,12 +52,11 @@ public class MvcActivity extends AppCompatActivity implements SwipeRefreshLayout
      * 3.Activity(Controller)向appHelper(Model)发起请求,即调用getAppList()方法.
      * 4.appHelper(Model)通过接口OnAppListener通知RecyclerView(View)更新界面
      */
-
     @Override
     public void onRefresh() {
         infoList.clear();
         appAdapter.notifyDataSetChanged();
-        appHelper.getAppList(this, this);
+        mvcModel.getAppList(this, this);
     }
 
     @Override

@@ -1,24 +1,27 @@
-package net.devwiki.architecture.common;
+package net.devwiki.architecture.mvc;
 
 import android.content.Context;
 import android.os.AsyncTask;
+
+import net.devwiki.architecture.common.AppInfo;
+import net.devwiki.architecture.common.AppUtil;
 
 import java.util.List;
 
 /**
  * Created by zyz on 2016/3/25.
  */
-public class AppHelper {
+public class MvcModel {
 
-    private static class HelperHolder{
-        private static AppHelper helper = new AppHelper();
+    private static class ModelHolder {
+        private static MvcModel helper = new MvcModel();
     }
 
-    public static AppHelper getInstance(){
-        return HelperHolder.helper;
+    public static MvcModel getInstance(){
+        return ModelHolder.helper;
     }
 
-    private AppHelper(){
+    private MvcModel(){
 
     }
 
