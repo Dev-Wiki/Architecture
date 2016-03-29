@@ -1,44 +1,22 @@
 package net.devwiki.architecture.mvc;
 
 import android.content.Context;
-import android.os.AsyncTask;
 
 import net.devwiki.architecture.common.AppInfo;
-import net.devwiki.architecture.common.AppUtil;
 
 import java.util.List;
 
 /**
- * Created by zyz on 2016/3/25.
+ * Created by zyz on 2016/3/29.
  */
-public class MvcModel {
+public interface MvcModel {
+    /**
+     * Created by zyz on 2016/3/25.
+     */
+    interface OnAppListener {
 
-    private static class ModelHolder {
-        private static MvcModel helper = new MvcModel();
+        void onComplete(List<AppInfo> list);
     }
 
-    public static MvcModel getInstance(){
-        return ModelHolder.helper;
-    }
-
-    private MvcModel(){
-
-    }
-
-    public void getAppList(final Context context, final OnAppListener listener){
-        new AsyncTask<Void, Void, List<AppInfo>>(){
-
-            @Override
-            protected List<AppInfo> doInBackground(Void... params) {
-                return AppUtil.getAppList(context);
-            }
-
-            @Override
-            protected void onPostExecute(List<AppInfo> list) {
-                if (listener != null){
-                    listener.onComplete(list);
-                }
-            }
-        }.execute();
-    }
+    void getAppList(final Context context, final MvcModel.OnAppListener listener);
 }

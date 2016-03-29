@@ -1,5 +1,6 @@
 package net.devwiki.architecture.mvp;
 
+import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -49,10 +50,8 @@ public class MvpActivity extends AppCompatActivity implements SwipeRefreshLayout
     /**
      * 1.Activity(View)持有Presenter对象
      * 2.Activity(View)接收用户指令,执行下拉刷新操作
-     * 3.Activity(View)调用Presenter的loadApp方法
+     * 3.Activity(View)调用Presenter的{@link MvpPresenter#loadApp(Context)}方法
      */
-
-
     @Override
     public void onRefresh() {
         presenter.loadApp(this);

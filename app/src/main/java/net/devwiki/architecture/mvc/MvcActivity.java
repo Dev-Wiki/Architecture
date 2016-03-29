@@ -16,7 +16,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MvcActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, OnAppListener{
+public class MvcActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener{
 
     @Bind(R.id.app_list)
     RecyclerView appList;
@@ -26,7 +26,7 @@ public class MvcActivity extends AppCompatActivity implements SwipeRefreshLayout
     private List<AppInfo> infoList;
     private AppAdapter appAdapter;
 
-    private MvcModel mvcModel;
+    private MvcModelImpl mvcModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public class MvcActivity extends AppCompatActivity implements SwipeRefreshLayout
 
         refreshLayout.setOnRefreshListener(this);
 
-        mvcModel = MvcModel.getInstance();
+        mvcModel = MvcModelImpl.getInstance();
     }
 
     /**
@@ -56,12 +56,12 @@ public class MvcActivity extends AppCompatActivity implements SwipeRefreshLayout
     public void onRefresh() {
         infoList.clear();
         appAdapter.notifyDataSetChanged();
-        mvcModel.getAppList(this, this);
-    }
-
-    @Override
-    public void onComplete(List<AppInfo> list) {
-        displayResult(list);
+        mvcModel.getAppList(this, new MvcModel.OnAppListener() {
+            @Override
+            public void onComplete(List<AppInfo> list) {
+                displayResult(list);
+            }
+        });
     }
 
     private void displayResult(List<AppInfo> list){
