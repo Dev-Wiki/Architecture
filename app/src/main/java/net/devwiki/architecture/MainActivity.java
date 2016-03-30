@@ -7,7 +7,7 @@ import android.view.View;
 
 import net.devwiki.architecture.mvc.MvcActivity;
 import net.devwiki.architecture.mvp.MvpActivity;
-import net.devwiki.architecture.mvvm.MvvmActivity;
+import net.devwiki.architecture.normal.NormalActivity;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.mvc, R.id.mvp, R.id.mvvm})
+    @OnClick({R.id.mvc, R.id.mvp, R.id.normal})
     public void onClick(View view) {
         Intent intent;
         switch (view.getId()) {
@@ -33,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
                 intent = new Intent(MainActivity.this, MvpActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.mvvm:
-                intent = new Intent(MainActivity.this, MvvmActivity.class);
+            case R.id.normal:
+                intent = new Intent(MainActivity.this, NormalActivity.class);
                 startActivity(intent);
                 break;
         }

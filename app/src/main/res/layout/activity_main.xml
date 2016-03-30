@@ -11,6 +11,12 @@
     android:orientation="vertical">
 
     <Button
+        android:id="@+id/normal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/normal"/>
+
+    <Button
         android:id="@+id/mvc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,11 +27,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/mvp"/>
-
-    <Button
-        android:id="@+id/mvvm"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/mvvm"/>
 
 </LinearLayout>

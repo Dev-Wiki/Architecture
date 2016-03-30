@@ -7,6 +7,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
+        android:name=".ArchitectureApp"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -18,7 +19,6 @@
         <activity android:name=".mvc.MvcActivity" />
         <activity android:name=".normal.NormalActivity" />
         <activity android:name=".mvp.MvpActivity" />
-        <activity android:name=".mvvm.MvvmActivity"></activity>
     </application>
 
 </manifest>
