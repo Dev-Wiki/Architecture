@@ -68,4 +68,10 @@ public class NormalActivity extends AppCompatActivity {
             }
         }.execute();
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
+    }
 }
