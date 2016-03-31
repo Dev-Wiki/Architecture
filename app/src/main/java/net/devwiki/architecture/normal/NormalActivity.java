@@ -1,8 +1,9 @@
-package net.devwiki.architecture.mvc;
+package net.devwiki.architecture.normal;
 
+import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -10,7 +11,7 @@ import net.devwiki.architecture.ArchitectureApp;
 import net.devwiki.architecture.R;
 import net.devwiki.architecture.common.AppAdapter;
 import net.devwiki.architecture.common.AppInfo;
-import net.devwiki.architecture.normal.NormalActivity;
+import net.devwiki.architecture.common.AppUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MvcActivity extends AppCompatActivity {
+public class NormalActivity extends AppCompatActivity {
 
     @Bind(R.id.app_list)
     RecyclerView appList;
@@ -28,12 +29,10 @@ public class MvcActivity extends AppCompatActivity {
     private List<AppInfo> infoList;
     private AppAdapter appAdapter;
 
-    private MvcModelImpl mvcModel;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mvc);
+        setContentView(R.layout.activity_normal);
         ButterKnife.bind(this);
 
         infoList = new ArrayList<>();
@@ -49,34 +48,25 @@ public class MvcActivity extends AppCompatActivity {
                 loadApp();
             }
         });
-
-        mvcModel = MvcModelImpl.getInstance();
     }
-
-    /**
-     * 1.Activity(Controller)持有appHelper(Model)模型对象
-     * 2.用户操作SwipeRefreshLayout(View),下拉刷新
-     * 3.Activity(Controller)向appHelper(Model)发起请求,即调用getAppList()方法.
-     * 4.appHelper(Model)通过接口OnAppListener通知RecyclerView(View)更新界面
-     */
 
     private void loadApp(){
+        refreshLayout.setRefreshing(true);
         infoList.clear();
         appAdapter.notifyDataSetChanged();
-        mvcModel.getAppList(ArchitectureApp.getContext(), new MvcModel.OnAppListener() {
+        new AsyncTask<Void, Void, List<AppInfo>>(){
             @Override
-            public void onComplete(List<AppInfo> list) {
-                displayResult(list);
+            protected List<AppInfo> doInBackground(Void... params) {
+                return AppUtil.getAppList(ArchitectureApp.getContext());
             }
-        });
-    }
 
-    private void displayResult(List<AppInfo> list){
-        refreshLayout.setRefreshing(false);
-        if (list != null){
-            infoList.addAll(list);
-            appAdapter.notifyDataSetChanged();
-        }
+            @Override
+            protected void onPostExecute(List<AppInfo> appInfos) {
+                infoList.addAll(appInfos);
+                appAdapter.notifyDataSetChanged();
+                refreshLayout.setRefreshing(false);
+            }
+        }.execute();
     }
 
     @Override
