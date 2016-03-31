@@ -33,7 +33,7 @@ public class MvpActivity extends AppCompatActivity implements MvpView{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mvp);
+        setContentView(R.layout.activity_app_list);
         ButterKnife.bind(this);
 
         infoList = new ArrayList<>();

@@ -10,7 +10,6 @@ import net.devwiki.architecture.ArchitectureApp;
 import net.devwiki.architecture.R;
 import net.devwiki.architecture.common.AppAdapter;
 import net.devwiki.architecture.common.AppInfo;
-import net.devwiki.architecture.normal.NormalActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +32,7 @@ public class MvcActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mvc);
+        setContentView(R.layout.activity_app_list);
         ButterKnife.bind(this);
 
         infoList = new ArrayList<>();
