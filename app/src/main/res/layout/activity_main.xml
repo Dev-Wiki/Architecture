@@ -28,4 +28,10 @@
         android:layout_height="wrap_content"
         android:text="@string/mvp"/>
 
+    <Button
+        android:id="@+id/mvp2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/mvp2"/>
+
 </LinearLayout>
